@@ -20,12 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ')$9&wqexjic1_*u&-_mdy8i6iu8pxk4t4fm5l*s16=_m&3eu^m'
+SECRET_KEY = 'sj*%&7!glb66+9c@fkcu*$tjxv%@q(bllxlw&o#ych6d71i-#x'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.42.168',]
 
 
 # Application definition
@@ -75,8 +75,12 @@ WSGI_APPLICATION = 'centennial.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'centennial_db',
+        'USER': 'django_home_app',
+        'PASSWORD': 'P@ssw0rd',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
