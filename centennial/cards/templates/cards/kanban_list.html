@@ -1,3 +1,7 @@
+
+
+{% extends 'base.html' %}
+{% block content %}
 <h1>KANBAN</h1>
 
   <h2>Backlog</h2>
@@ -5,7 +9,13 @@
 
   <ul>
     {% for card in backlog_cards %}
-      <li>{{card}}</li>
+    <span class="cardclass">
+      <li>
+        <h3>{{card}}</h3>
+        <p>{{card.description}}</p>
+        <h6>{{card.get_priority_display}}</h6>
+      </li>
+    </span>
     {% endfor %}
   </ul>
     {% else %}
@@ -59,3 +69,4 @@
     {% else %}
   <h2>No cards available</h2>
   {% endif %}
+  {% endblock %}
