@@ -174,3 +174,8 @@ class CardViewTest(TestCase):
         response = self.get_response_from_name("create-card")
 
         self.assertEqual(response.status_code, 200)
+
+    def test_kanban_board_page(self):
+        response = self.get_response_from_name("kanban")
+
+        self.assertEqual(response.status_code, 200)

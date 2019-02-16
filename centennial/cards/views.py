@@ -38,3 +38,18 @@ class DoneListView(generic.ListView):
     model = Card
     context_object_name = "done_cards"
     queryset = Card.objects.filter(status='500')
+
+class KanbanBoardListView(generic.ListView):
+    model = Card
+    template_name = "cards/kanban_list.html"
+
+    backlog_items = BacklogListView().queryset
+    def get_context_data(self, *args, **kwargs):
+        context = super(KanbanBoardListView, self).get_context_data(*args, **kwargs)
+        context['backlog_cards'] = BacklogListView().queryset
+        context['todo_cards'] = TodoListView().queryset
+        context['inprogress_cards'] = InprogressListView().queryset
+        context['review_cards'] = ReviewListView().queryset
+        context['done_cards'] = DoneListView().queryset
+
+        return context

@@ -9,5 +9,6 @@ urlpatterns = [
     path('in-progress/',views.InprogressListView.as_view(),name='in-progress'),
     path('review/',views.ReviewListView.as_view(),name='review'),
     path('done/',views.DoneListView.as_view(),name='done'),
+    path('kanban/',views.KanbanBoardListView.as_view(),name='kanban'),
     path('create/',views.CardCreateView.as_view(),name='create-card'),
 ]

@@ -1,0 +1,61 @@
+<h1>KANBAN</h1>
+
+  <h2>Backlog</h2>
+  {% if backlog_cards %}
+
+  <ul>
+    {% for card in backlog_cards %}
+      <li>{{card}}</li>
+    {% endfor %}
+  </ul>
+    {% else %}
+  <h2>No cards available</h2>
+  {% endif %}
+
+  <h2>To Do</h2>
+  {% if todo_cards %}
+
+  <ul>
+    {% for card in todo_cards %}
+      <li>{{card}}</li>
+    {% endfor %}
+  </ul>
+    {% else %}
+  <h2>No cards available</h2>
+  {% endif %}
+
+  <h2>In Progress</h2>
+  {% if inprogress_cards %}
+
+  <ul>
+    {% for card in inprogress_cards %}
+      <li>{{card}}</li>
+    {% endfor %}
+  </ul>
+    {% else %}
+  <h2>No cards available</h2>
+  {% endif %}
+
+  <h2>Review</h2>
+  {% if review_cards %}
+
+  <ul>
+    {% for card in review_cards %}
+      <li>{{card}}</li>
+    {% endfor %}
+  </ul>
+    {% else %}
+  <h2>No cards available</h2>
+  {% endif %}
+
+  <h2>Done</h2>
+  {% if done_cards %}
+
+  <ul>
+    {% for card in done_cards %}
+      <li>{{card}}</li>
+    {% endfor %}
+  </ul>
+    {% else %}
+  <h2>No cards available</h2>
+  {% endif %}
