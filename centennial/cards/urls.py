@@ -3,6 +3,11 @@ from . import views
 
 # app url patterns
 urlpatterns = [
-    path('',views.CardListView.as_view(),name='backlog'),
-    path('create/',views.CardCreateView.as_view(),name='card-create'),
+    # TODO: path handle to patterns for backlog
+    path('',views.BacklogListView.as_view(),name='backlog'),
+    path('to-do/',views.TodoListView.as_view(),name='to-do'),
+    path('in-progress/',views.InprogressListView.as_view(),name='in-progress'),
+    path('review/',views.ReviewListView.as_view(),name='review'),
+    path('done/',views.DoneListView.as_view(),name='done'),
+    path('create/',views.CardCreateView.as_view(),name='create-card'),
 ]
