@@ -52,4 +52,5 @@ class KanbanBoardListView(generic.ListView):
         context['review_cards'] = ReviewListView().queryset
         context['done_cards'] = DoneListView().queryset
 
+
         return context

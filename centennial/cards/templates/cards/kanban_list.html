@@ -2,71 +2,124 @@
 
 {% extends 'base.html' %}
 {% block content %}
-<h1>KANBAN</h1>
 
-  <h2>Backlog</h2>
-  {% if backlog_cards %}
+<div class="container">
 
-  <ul>
-    {% for card in backlog_cards %}
-    <span class="cardclass">
-      <li>
-        <h3>{{card}}</h3>
-        <p>{{card.description}}</p>
-        <h6>{{card.get_priority_display}}</h6>
-      </li>
-    </span>
-    {% endfor %}
-  </ul>
-    {% else %}
-  <h2>No cards available</h2>
-  {% endif %}
 
-  <h2>To Do</h2>
-  {% if todo_cards %}
 
-  <ul>
-    {% for card in todo_cards %}
-      <li>{{card}}</li>
-    {% endfor %}
-  </ul>
-    {% else %}
-  <h2>No cards available</h2>
-  {% endif %}
+    <h1>KANBAN</h1>
+  <table class="table table-bordered table-dark">
+    <thead>
+      <th class="k-head">Backlog</th>
+      <th class="k-head">To do</th>
+      <th class="k-head">In Progress</th>
+      <th class="k-head">Review</th>
+      <th class="k-head">Done</th>
+    </thead>
+    <tr>
+      <td>
+        <div class="column" id="backlog_col">
 
-  <h2>In Progress</h2>
-  {% if inprogress_cards %}
+          {% for card in backlog_cards %}
+            <div class="portlet card">
+              <div class="portlet-header">{{card}}</div>
+              <div class="portlet-content">{{card.description}}</div>
+              <div class="portlet-content">{{card.get_priority_display}}</div>
+            </div>
+          {% endfor %}
 
-  <ul>
-    {% for card in inprogress_cards %}
-      <li>{{card}}</li>
-    {% endfor %}
-  </ul>
-    {% else %}
-  <h2>No cards available</h2>
-  {% endif %}
 
-  <h2>Review</h2>
-  {% if review_cards %}
+        </div>
+      </td>
 
-  <ul>
-    {% for card in review_cards %}
-      <li>{{card}}</li>
-    {% endfor %}
-  </ul>
-    {% else %}
-  <h2>No cards available</h2>
-  {% endif %}
 
-  <h2>Done</h2>
-  {% if done_cards %}
 
-  <ul>
-    {% for card in done_cards %}
-      <li>{{card}}</li>
-    {% endfor %}
-  </ul>
-    {% else %}
-  <h2>No cards available</h2>
-  {% endif %}
-  {% endblock %}
+      <td>
+        <div class="column" id="todo_col">
+          {% if todo_cards %}
+            {% for card in todo_cards %}
+              <div class="portlet card">
+                <div class="portlet-header">{{card}}</div>
+                <div class="portlet-content">{{card.description}}</div>
+                <div class="portlet-content">{{card.get_priority_display}}</div>
+              </div>
+            {% endfor %}
+        {% else %}
+          <h2>No cards available</h2>
+        {% endif %}
+        </div>
+      </td>
+
+      <td>
+        <div class="column" id="inprogress_col">
+
+          {% for card in inprogress_cards %}
+            <div class="portlet card">
+              <div class="portlet-header">{{card}}</div>
+              <div class="portlet-content">{{card.description}}</div>
+              <div class="portlet-content">{{card.get_priority_display}}</div>
+            </div>
+          {% endfor %}
+
+
+        </div>
+      </td>
+
+      <td>
+        <div class="column" id="review_col">
+
+          {% for card in review_cards %}
+            <div class="portlet card">
+              <div class="portlet-header">{{card}}</div>
+              <div class="portlet-content">{{card.description}}</div>
+              <div class="portlet-content">{{card.get_priority_display}}</div>
+            </div>
+          {% endfor %}
+
+
+        </div>
+      </td>
+
+      <td>
+        <div class="column" id="done_col">
+
+          {% for card in done_cards %}
+            <div class="portlet card">
+              <div class="portlet-header">{{card}}</div>
+              <div class="portlet-content">{{card.description}}</div>
+              <div class="portlet-content">{{card.get_priority_display}}</div>
+            </div>
+          {% endfor %}
+
+
+        </div>
+      </td>
+
+    </tr>
+  </table>
+</div>
+
+<!-- TODO: add this to a js file -->
+<script>
+$( function() {
+$( ".column" ).sortable({
+  connectWith: ".column",
+  handle: ".portlet-header",
+  cancel: ".portlet-toggle",
+  placeholder: "portlet-placeholder ui-corner-all"
+});
+
+$( ".portlet" )
+  .addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" )
+  .find( ".portlet-header" )
+    .addClass( "ui-widget-header ui-corner-all" )
+    .prepend( "<span class='ui-icon ui-icon-minusthick portlet-toggle'></span>");
+
+$( ".portlet-toggle" ).on( "click", function() {
+  var icon = $( this );
+  icon.toggleClass( "ui-icon-minusthick ui-icon-plusthick" );
+  icon.closest( ".portlet" ).find( ".portlet-content" ).toggle();
+});
+} );
+</script>
+{% endblock %}
