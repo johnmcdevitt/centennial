@@ -3,6 +3,13 @@ from django.db import models
 # Create your models here.
 
 # card - basic item objects
+class CardType(models.Model):
+    cardtype = models.CharField(max_length=30, unique=True)
+    color = models.CharField(max_length=6)
+
+    def __str__(self):
+        return self.cardtype
+
 class Card(models.Model):
     priority_choices = (
         ('3', 'High'),
@@ -25,6 +32,10 @@ class Card(models.Model):
     status = models.CharField(max_length=3,
                                 choices=status_choices,
                                 default='100')
+
+    type = models.ForeignKey(CardType, on_delete=models.CASCADE, null=True)
+
+
 
     # metadata fields
     created_date = models.DateField(auto_now_add=True)

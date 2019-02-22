@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.utils import timezone
 
 # project specific imports
-from cards.models import Card
+from cards.models import Card, CardType
 
 # test methods
 class CardTest(TestCase):
@@ -43,3 +43,9 @@ class CardTest(TestCase):
         # Done
         self.assertTrue(isinstance(c5, Card))
         self.assertEqual(c5.get_status_display(), "Done")
+
+    def test_create_card_type(self):
+        ct = CardType.objects.create(cardtype="Test type", color=000000)
+
+        self.assertTrue(isinstance(ct, CardType))
+        self.assertEqual(ct.cardtype, ct.__str__())
