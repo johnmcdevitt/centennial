@@ -1,4 +1,5 @@
 from django.db import models
+from random import randint
 
 # Create your models here.
 
@@ -9,6 +10,17 @@ class CardType(models.Model):
 
     def __str__(self):
         return self.cardtype
+
+def order_default_value():
+    # order will be positive integer, 3 leading digits will be status
+    # then a random integer of 6 digits
+    max = 100999999
+    # min value will be determined by the max value currently in backlog status "100"
+    min = Card.objects.filter(status="100").aggregate(models.Max("order"))['order__max']
+    if min is None:
+        min = 100000000
+
+    return randint(min+1,max-1)
 
 class Card(models.Model):
     priority_choices = (
@@ -34,7 +46,7 @@ class Card(models.Model):
                                 default='100')
 
     type = models.ForeignKey(CardType, on_delete=models.CASCADE, null=True)
-
+    order = models.PositiveIntegerField(default = order_default_value, unique=True, null=True)
 
 
     # metadata fields
@@ -43,3 +55,10 @@ class Card(models.Model):
     # methods
     def __str__(self):
         return self.title
+
+    def getcolor(self):
+        if self.type is None:
+            color = '000000'
+        else:
+            color = self.type.color
+        return color

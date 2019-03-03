@@ -45,7 +45,19 @@ class CardTest(TestCase):
         self.assertEqual(c5.get_status_display(), "Done")
 
     def test_create_card_type(self):
-        ct = CardType.objects.create(cardtype="Test type", color=000000)
+        ct = CardType.objects.create(cardtype="Test type", color="000000")
 
         self.assertTrue(isinstance(ct, CardType))
         self.assertEqual(ct.cardtype, ct.__str__())
+
+    def test_getcolor_for_card(self):
+        ct = CardType.objects.create(cardtype="test type", color="777777")
+        c = self.create_card()
+
+        # color is 000000 when type is None
+        self.assertTrue(c.type is None)
+        self.assertEqual(c.getcolor(), "000000")
+
+        c.type = ct
+        c.save()
+        self.assertEqual(ct.color, c.getcolor())
