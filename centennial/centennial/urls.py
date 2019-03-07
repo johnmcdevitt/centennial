@@ -22,4 +22,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('/',include('cards.urls')), # TODO create an index.html,landing page
     path('cards/', include('cards.urls')),
-]
+] #+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
