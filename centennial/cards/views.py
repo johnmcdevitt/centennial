@@ -7,15 +7,14 @@ from django.http import JsonResponse
 
 # project specific imports
 from .models import Card, CardType
-from .forms import CardTypeForm
+from .forms import CardTypeForm, CardForm
 
 # Create your views here.
-class CardCreateView(generic.CreateView):
+class CardCreateView(PassRequestMixin, SuccessMessageMixin, generic.CreateView):
+    template_name = "cards/card_form.html"
     model = Card
-    fields = ["title", "description","priority"]
-    def get_success_url(self):
-        return reverse('kanban')
-
+    form_class = CardForm
+    success_url = reverse_lazy("kanban")
 
 
 class BacklogListView(generic.ListView):

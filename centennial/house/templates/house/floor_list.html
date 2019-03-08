@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+    {% block content %}
+      <h1>Floors</h1>
+      <ul>
+        {% for floor in object_list %}
+          <li>{{floor.floorlevel}} - {{floor.floorname}}</li>
+        {% endfor %}
+      </ul>
+
+      <form class="" action="/addfloor/" method="get">
+        <input type="button" name="" value="+">
+
+      </form>
+    {% endblock %}

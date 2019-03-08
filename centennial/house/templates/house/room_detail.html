@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- main block has name and images -->
+<div class="row">
+
+  <div class="room-images col-sm-12 col-lg-10">
+    <h1>{{room.roomname}}</h1>
+    <h3>placeholder content, description perhaps</h3>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
+       cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
+        est laborum.</p>
+
+    <h3>{{room.roomname}} images</h3>
+    <div class="row">
+
+
+    {% for image in room.image_set.all %}
+      <div class="column">
+
+        <img src="{{ image.image.url }}" alt="uh-oh, image.image.url not found"
+        class="img-thumbnail col-sm-6 col-lg-5 col-xlg-3">
+        <p class="col-sm-6 col-lg-5 col-xlg-3">{{image.get_image_type_display}}</p>
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+
+<div class="row">
+  <div class="column">
+
+
+  {% for image in room.image_set.all %}
+
+      <img src="{{ image.image.url }}" alt="uh-oh, image.image.url not found"
+      class="img-thumbnail col-sm-6 col-lg-5 col-xlg-3">
+      <p class="col-sm-6 col-lg-5 col-xlg-3">{{image.get_image_type_display}}</p>
+  {% endfor %}
+
+  </div>
+
+</div>
+
+  <!-- relevant todo details -->
+  <div class="room-todos col-sm-12 col-lg-2">
+
+    <h3>{{room.roomname}} to dos</h1>
+
+{# TODO this for loop is not D.R.Y.#}
+    {% for todo in room.todo_set.all %}
+
+      {% if todo.status in "DC" %}
+
+        <p class="todo-done">
+          {{todo.title}}
+        </p>
+
+      {% elif todo.is_overdue %}
+        <p class="todo-overdue">
+            {{todo.get_priority_display}} - {{todo.title}} - {{todo.due_date}}</p>
+
+      {% elif todo.is_approaching %}
+        <p class="todo-approaching">
+            {{todo.get_priority_display}} - {{todo.title}} - {{todo.due_date}}</p>
+      {% else %}
+        <p class="todo">
+            {{ todo.title }}
+        </p>
+      {% endif %}
+    {% endfor %}
+
+  </div>
+</div>
+{% endblock %}

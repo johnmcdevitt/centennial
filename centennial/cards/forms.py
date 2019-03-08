@@ -6,10 +6,10 @@ from bootstrap_modal_forms.mixins import PopRequestMixin, CreateUpdateAjaxMixin
 # project specific imports
 from .models import Card, CardType
 
-class CardForm(forms.ModelForm):
+class CardForm(PopRequestMixin, CreateUpdateAjaxMixin, forms.ModelForm):
     class Meta:
         model = Card
-        exclude = ['status',]
+        exclude = ['status','order']
 
 class CardTypeForm(PopRequestMixin, CreateUpdateAjaxMixin, forms.ModelForm):
     class Meta:

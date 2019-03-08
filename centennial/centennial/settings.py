@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'cards',
     'bootstrap_modal_forms',
+    'webusers',
+    'images',
+    'house',
 ]
 
 MIDDLEWARE = [
