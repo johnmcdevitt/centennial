@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'cards'
+    'cards',
+    'bootstrap_modal_forms',
 ]
 
 MIDDLEWARE = [
