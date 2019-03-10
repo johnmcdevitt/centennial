@@ -4,7 +4,8 @@ from . import views
 # app url patterns
 urlpatterns = [
     # TODO: path handle to patterns for backlog
-    path('',views.BacklogListView.as_view(),name='backlog'),
+    path(r'',views.KanbanBoardListView.as_view(),name='kanban'),
+    path('backlog/',views.BacklogListView.as_view(),name='backlog'),
     path('to-do/',views.TodoListView.as_view(),name='to-do'),
     path('in-progress/',views.InprogressListView.as_view(),name='in-progress'),
     path('review/',views.ReviewListView.as_view(),name='review'),

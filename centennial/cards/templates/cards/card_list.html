@@ -1,12 +1,16 @@
-<h1>success</h1>
+{% extends "base.html" %}
 
-  {% if object_list %}
+{% block content %}
 
-  <ul>
-    {% for card in object_list %}
-      <li>{{card}}</li>
-    {% endfor %}
-  </ul>
-    {% else %}
-  <h2>No cards available</h2>
-  {% endif %}
+    {% if object_list %}
+
+    <ul>
+      {% for card in object_list %}
+        <li>{{card}}</li>
+      {% endfor %}
+    </ul>
+      {% else %}
+    <h2>No cards available</h2>
+    {% endif %}
+
+  {% endblock %}

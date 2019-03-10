@@ -20,6 +20,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('/',include('cards.urls')), # TODO create an index.html,landing page
-    path('cards/', include('cards.urls')),
+    path('',include('cards.urls')),
+    path('cards/',include('cards.urls')),
+    path('accounts/',include('webusers.urls')),
+    path('house/',include('house.urls')),
+    path('images/',include('images.urls')),
+
 ] #+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
