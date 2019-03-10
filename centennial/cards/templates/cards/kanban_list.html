@@ -3,6 +3,18 @@
 {% extends 'base.html' %}
 {% block content %}
 
+{% csrf_token %}
+<h5>add card types</h5>
+<div class="modal fade" tabindex="-1" role="dialog" id="modal">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+
+    </div>
+
+  </div>
+
+</div>
+
     <h1>KANBAN</h1>
   <table class="table table-bordered table-dark">
     <thead>
@@ -139,15 +151,12 @@ const status = {
 
 function csrfSafeMethod(method) {
     // these HTTP methods do not require CSRF protection
-    console.log("getting token")
     return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 }
 $.ajaxSetup({
     beforeSend: function(xhr, settings) {
-        console.log("setup before send");
         if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
-            console.log("inside if statement")
         }
     }
 });
