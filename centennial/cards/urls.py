@@ -11,4 +11,6 @@ urlpatterns = [
     path('done/',views.DoneListView.as_view(),name='done'),
     path('kanban/',views.KanbanBoardListView.as_view(),name='kanban'),
     path('create/',views.CardCreateView.as_view(),name='create-card'),
+    path('ajax/<int:pk>/edit/',views.update_card_api,name='update_card_api'),
+    path('create-type/',views.CardTypeCreateView.as_view(),name='create-type'),
 ]
