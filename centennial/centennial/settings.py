@@ -25,8 +25,7 @@ SECRET_KEY = 'sj*%&7!glb66+9c@fkcu*$tjxv%@q(bllxlw&o#ych6d71i-#x'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.42.168',#host when connected to vizio tablet
-                 '192.168.1.11', #john ubuntu host
+ALLOWED_HOSTS = ['192.168.1.11', #john ubuntu host
                  'testserver',
                  'perkiomen-homestead.us']
 
