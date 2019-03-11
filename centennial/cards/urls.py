@@ -14,4 +14,6 @@ urlpatterns = [
     path('create/',views.CardCreateView.as_view(),name='create-card'),
     path('ajax/<int:pk>/edit/',views.update_card_api,name='update_card_api'),
     path('create-type/',views.CardTypeCreateView.as_view(),name='create-type'),
+    path('types/',views.CardTypeListView.as_view(),name='card-types'),
+    path('<int:pk>/edit/',views.edit_type_modal,name='edit_type_modal'),
 ]

@@ -11,6 +11,9 @@ class CardType(models.Model):
     def __str__(self):
         return self.cardtype
 
+    def cardcount(self):
+        return Card.objects.filter(type=self).count()
+
 def order_default_value():
     # order will be positive integer, 3 leading digits will be status
     # then a random integer of 6 digits

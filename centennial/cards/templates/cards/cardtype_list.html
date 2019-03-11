@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+  {% block content %}
+    <br>
+    <div class="jumbotron">
+      <div class="form_pane" style="display:hidden;" method="post">
+        <form class="edit_card" action="{% url "card-types" %}" method="post">
+          {% csrf_token %}
+          <input type="color" name="color" value="">
+          <input type="submit" name="Add new" value="">
+
+        </form>
+      </div>
+
+      <button type="button" name="button">Add new card type</button>
+      <br>
+      <br>
+      <table>
+        {% for t in cardtypes %}
+          <tr class="typelist">
+            <td><div class="color_box" style="background-color: #{{t.color}}">&nbsp;</div></td>
+            <td><div class="type_name">{{t}}</div></td>
+            <td><div class="card_count">{{t.cardcount}} cards</div></td>
+            <td><a href={% url 'edit_type_modal' t.id %}>edit</a></td>
+          </tr>
+        {% endfor %}
+      </table>
+
+    </div>
+
+
+  {% endblock %}

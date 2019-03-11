@@ -7,14 +7,15 @@ from django.http import JsonResponse
 
 # project specific imports
 from .models import Card, CardType
-from .forms import CardTypeForm, CardForm
+from .forms import CardTypeForm
 
 # Create your views here.
-class CardCreateView(PassRequestMixin, SuccessMessageMixin, generic.CreateView):
-    template_name = "cards/card_form.html"
+class CardCreateView(generic.CreateView):
     model = Card
-    form_class = CardForm
-    success_url = reverse_lazy("kanban")
+    fields = ["title", "description","priority"]
+    def get_success_url(self):
+        return reverse('kanban')
+
 
 
 class BacklogListView(generic.ListView):
@@ -53,6 +54,33 @@ class CardTypeCreateView(PassRequestMixin, SuccessMessageMixin, generic.CreateVi
     form_class = CardTypeForm
     success_message = "Success: Card type was created"
     success_url = reverse_lazy('kanban')
+
+class CardTypeListView(generic.ListView):
+    model = CardType
+    context_object_name = 'cardtypes'
+
+def edit_type_modal(request, pk):
+
+    # TODO: no data validation here
+    try:
+        #get the object
+        card = Card.objects.get(pk=pk)
+        if ("cardstatus" in request.POST.keys()):
+            card.status = request.POST["cardstatus"]
+        if ("order" in request.POST.keys()):
+            card.order = request.POST["order"]
+        card.save()
+        response = dict(status=200,message="Updated card id "+str(pk))
+        print("successful try")
+    except Card.DoesNotExist as e:
+        message="Card does not exist"
+        response = dict(status=500,message=message)
+        print("exception")
+    except Exception as e:
+                response = dict(status=500,message=str(TypeError(e)))
+                print("exception")
+
+    return JsonResponse(response)
 
 def update_card_api(request, pk):
 
