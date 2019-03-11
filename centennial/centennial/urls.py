@@ -26,4 +26,4 @@ urlpatterns = [
     path('house/',include('house.urls')),
     path('images/',include('images.urls')),
 
-] #+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
