@@ -3,9 +3,8 @@
 }
 
 .typelist {
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
+  width: 50%;
+  align-items: left;
 }
 
 .color_box {
@@ -16,6 +15,25 @@
 
 .jumbotron {
   color: black;
+}
+
+/* font awesome objects  */
+i {
+  color: #703229;
+}
+
+a {
+  color: inherit;
+}
+
+a:hover {
+  opacity: 0.5;
+  text-decoration: none;
+  color: inherit;
+}
+
+.modal-content {
+  color: #703229;
 }
 
 .card {

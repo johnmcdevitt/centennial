@@ -43,7 +43,7 @@
       <td>
         <!-- Create card link -->
         <div class="column" id="backlog_col">
-          <a href="#" class="create-card-type">+ add card</a>
+          <a href="#" class="create-card">+ add card</a>
 
         </div>
       </td>
@@ -199,7 +199,7 @@ $( ".portlet-toggle" ).on( "click", function() {
 <!-- scripts for modal form -->
 <script>
 $(document).ready(function() {
-  $(".create-card-type").modalForm({
+  $(".create-card").modalForm({
     formURL: "{% url 'create-card'%}"
   });
 });

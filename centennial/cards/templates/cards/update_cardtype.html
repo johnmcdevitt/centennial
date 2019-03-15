@@ -19,14 +19,14 @@
     {% endfor %}
     <div class="form-group">
       <label for="color-picker">Color: </label>
-      <input type="color" id="color-picker" onchange="updatecolor(this.value)" value="#ffffff">
+      <input type="color" id="color-picker" onchange="updatecolor(this.value)" value="#{{object.color}}">
     </div>
 
   </div>
 
   <div class="modal-footer">
     <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-    <button type="button" class="submit-btn btn btn-success">Create</button>
+    <button type="button" class="submit-btn btn btn-dark">Update</button>
 
   </div>
 </form>

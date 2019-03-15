@@ -53,34 +53,19 @@ class CardTypeCreateView(PassRequestMixin, SuccessMessageMixin, generic.CreateVi
     template_name = "cards/create_cardtype.html"
     form_class = CardTypeForm
     success_message = "Success: Card type was created"
-    success_url = reverse_lazy('kanban')
+    success_url = reverse_lazy('card-types')
+
+class CardTypeUpdateView(PassRequestMixin,SuccessMessageMixin,generic.UpdateView):
+    template_name = "cards/update_cardtype.html"
+    model = CardType
+    form_class = CardTypeForm
+    success_message = "Success: Card type was updated"
+    success_url = reverse_lazy('card-types')
+
 
 class CardTypeListView(generic.ListView):
     model = CardType
     context_object_name = 'cardtypes'
-
-def edit_type_modal(request, pk):
-
-    # TODO: no data validation here
-    try:
-        #get the object
-        card = Card.objects.get(pk=pk)
-        if ("cardstatus" in request.POST.keys()):
-            card.status = request.POST["cardstatus"]
-        if ("order" in request.POST.keys()):
-            card.order = request.POST["order"]
-        card.save()
-        response = dict(status=200,message="Updated card id "+str(pk))
-        print("successful try")
-    except Card.DoesNotExist as e:
-        message="Card does not exist"
-        response = dict(status=500,message=message)
-        print("exception")
-    except Exception as e:
-                response = dict(status=500,message=str(TypeError(e)))
-                print("exception")
-
-    return JsonResponse(response)
 
 def update_card_api(request, pk):
 
