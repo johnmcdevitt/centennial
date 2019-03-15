@@ -3,6 +3,10 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyc
+
+# user uploads
+media/uploads/
 
 # code coverage files
 htmlcov/
