@@ -16,6 +16,10 @@
 .jumbotron {
   color: black;
 }
+.carousel-inner>.item>img, .carousel-inner>.item>a>img {
+height: 100px;
+}
+
 
 /* font awesome objects  */
 i {
