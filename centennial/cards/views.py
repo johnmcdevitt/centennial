@@ -7,12 +7,12 @@ from django.http import JsonResponse
 
 # project specific imports
 from .models import Card, CardType
-from .forms import CardTypeForm
+from .forms import CardTypeForm, CardForm
 
 # Create your views here.
-class CardCreateView(generic.CreateView):
+class CardCreateView(PassRequestMixin, SuccessMessageMixin, generic.CreateView):
     model = Card
-    fields = ["title", "description","priority"]
+    form_class = CardForm
     def get_success_url(self):
         return reverse('kanban')
 
