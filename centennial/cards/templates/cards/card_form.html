@@ -1,16 +1,25 @@
+{% load widget_tweaks %}
+
 <form action="" method="post">
   {% csrf_token %}
   <div class="modal-header">
-    <h5 class="modal-title" default="add your title here">{{ form.title }}</h5>
-    <button type="button" name="close" data-dismiss="modal" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <h5 class="modal-title"  >
+      {{ form.title|attr:"placeholder:Add task title here..."|attr:"onchange:updateTitle(this.value)"|attr:"id:title_head"}}
+    </h5>
+    <i class="fas fa-window-close" data-dismiss="modal" aria-label="Close"></i>
   </div>
 
   <div class="modal-body">
     {% for field in form %}
-      <div class="form-group{% if field.errors %} invalid {% endif %}">
+      <div class="form-group{% if field.errors %} invalid {% endif %}" {% if field is form.title %} hidden {% endif %}>
+        {% if field is form.priority or field is form.type %}
+        {{ field.label_tag }}
+        {{ field|add_class:"btn btn-light"}}
+        {% else %}
+        {{ field.label_tag }}
         {{ field }}
+        {% endif %}
+
         {% for error in field.errors %}
           <p class="help-block">{{ error }}</p>
         {% endfor %}
@@ -19,8 +28,24 @@
   </div>
 
   <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    <button type="button" class="submit-btn btn btn-primary">Create</button>
+    <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+    <button type="button" class="submit-btn btn btn-success">Create</button>
 
   </div>
 </form>
+
+<script type="text/javascript">
+// display color in heading based on type selected
+document.getElementById("id_type").setAttribute("onchange", "colorHead(this.value)")
+
+// TODO incorporate API with flask to get data in real-time
+function colorHead(type) {
+  console.log(type)
+}
+
+// title from head moved to hidden input field for submission
+function updateTitle(value) {
+  $("#id_title")[0].value = value
+}
+
+</script>
