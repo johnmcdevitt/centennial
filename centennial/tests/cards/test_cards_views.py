@@ -179,3 +179,16 @@ class CardViewTest(TestCase):
         response = self.get_response_from_name("kanban")
 
         self.assertEqual(response.status_code, 200)
+
+    def test_update_card_api_view(self):
+        # get primary key for a card to test pre and post using view
+        pk = self.c1.pk
+        self.assertEqual(self.c1.status, "100")
+        # construct post data and post to view
+        post_data = dict(cardstatus="300",order=300010907)
+        response = self.client.post(reverse('update_card_api',args=[pk]),post_data)
+        self.assertEqual(response.status_code, 200)
+        # confirm card object is updated
+        self.c1 = Card.objects.filter(pk=pk)[0]
+        self.assertEqual(self.c1.status, "300")
+        self.assertEqual(self.c1.order, 300010907)

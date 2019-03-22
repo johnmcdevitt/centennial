@@ -17,11 +17,11 @@ class CardType(models.Model):
 def order_default_value():
     # order will be positive integer, 3 leading digits will be status
     # then a random integer of 6 digits
-    max = 100999999
+    min = 100000000
     # min value will be determined by the max value currently in backlog status "100"
-    min = Card.objects.filter(status="100").aggregate(models.Max("order"))['order__max']
-    if min is None:
-        min = 100000000
+    max = Card.objects.filter(status="100").aggregate(models.Min("order"))['order__min']
+    if max is None:
+        max = 100999999
 
     return randint(min+1,max-1)
 

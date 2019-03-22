@@ -1,10 +1,34 @@
 from django.test import TestCase
 from django.utils import timezone
+from django.db.utils import IntegrityError
 
 # project specific imports
 from cards.models import Card, CardType
 
 # test methods
+class CardTypeTest(TestCase):
+
+    def test_create_card_type(self):
+        ct = CardType.objects.create(cardtype="test type",color="123456")
+        self.assertTrue(isinstance(ct, CardType))
+        self.assertTrue(ct.cardtype, ct.__str__())
+
+
+        with self.assertRaisesMessage(IntegrityError, 'duplicate key value violates unique constraint "cards_cardtype_cardtype_key"'):
+            ct2=CardType.objects.create(cardtype="test type",color="654321")
+
+    def test_card_type_count(self):
+        ct = CardType.objects.create(cardtype="test type",color="123456")
+
+        # test 0 cards of that type
+        self.assertEqual(ct.cardcount(), 0)
+
+        # test 3 cards with a certain types
+        c1 = Card.objects.create(title="test card", type=ct)
+        c2 = Card.objects.create(title="second test card", type=ct)
+        c3 = Card.objects.create(title="third test card", type=ct)
+        self.assertEqual(ct.cardcount(),3)
+
 class CardTest(TestCase):
 
     def create_card(self, title= "This is a test card",
@@ -15,6 +39,17 @@ class CardTest(TestCase):
                     status='100'):
         return Card.objects.create(title=title,description=description,
                                    priority=priority,status=status)
+
+    def test_card_default_order(self):
+        c1 = self.create_card()
+        c2 = self.create_card()
+        c3 = self.create_card()
+
+        # test default order function puts items in correct order
+        self.assertTrue(c1.order > c2.order)
+        self.assertTrue(c2.order > c3.order)
+        self.assertTrue(c1.order < 101000000)
+        self.assertTrue(c3.order > 100000000)
 
     def test_card_creation(self):
         c = self.create_card()

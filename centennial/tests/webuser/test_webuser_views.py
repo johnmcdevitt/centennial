@@ -15,8 +15,8 @@ class WebuserTestViews(TestCase):
         self.testuser = WebUser.objects.create(username="testuser",
                                               first_name="test",
                                               last_name="user",
-                                              email="test@example.com",
-                                              password="secret_password")
+                                              email="test@example.com")
+        self.testuser.set_password("secret_password")
         self.testuser.save()
 
 
@@ -45,11 +45,29 @@ class WebuserTestViews(TestCase):
         response = self.client.get(reverse("profile"))
 
         self.assertEqual(response.status_code,200)
-        print(response.content)
         self.assertContains(response, self.testuser.first_name)
 
-
-
     def test_update_profile_view(self):
-        #self.assertTrue(False)
-        pass
+        self.client.login(username="testuser", password="secret_password")
+        get_response = self.client.get(reverse("profile-update"))
+
+        self.assertEqual(get_response.status_code,200)
+        self.assertContains(get_response,self.testuser.email)
+
+        # construct form_data
+        post_data = dict(first_name="first",last_name="LAST",email="test@test.com")
+        # post data and successfully redirected
+        post_response = self.client.post(reverse('profile-update'),post_data,follow=True)
+        self.assertRedirects(post_response,reverse('profile'),status_code=302,target_status_code=200)
+
+        # get test user from the attributes from the database
+        self.testuser = WebUser.objects.filter(username="testuser")[0]
+        self.assertEqual(self.testuser.first_name, "first")
+        self.assertEqual(self.testuser.last_name, "LAST")
+        self.assertEqual(self.testuser.email, "test@test.com")
+
+    def test_logout_view(self):
+        self.client.login(username="testuser",password="secret_password")
+
+        response = self.client.get(reverse("logout"),follow=True)
+        self.assertRedirects(response,reverse("login"),status_code=302,target_status_code=200)
