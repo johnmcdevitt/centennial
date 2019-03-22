@@ -28,7 +28,7 @@ def profile_update_view(request):
 
         if form.is_valid():
             form.save()
-            return redirect('rooms')
+            return redirect('profile')
 
     else:
         form = ProfileForm(instance=request.user)
