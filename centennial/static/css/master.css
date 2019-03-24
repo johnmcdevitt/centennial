@@ -86,7 +86,6 @@ body {
 
 /* portlets for kanban board https://jqueryui.com/sortable/#portlets */
 .column {
-  width: 170px;
   float: left;
   padding-bottom: 100px;
 }
