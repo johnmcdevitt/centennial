@@ -1,5 +1,5 @@
 body {
-  font-family: 'Century gothic';
+  font-family: 'Abel', sans-serif;
 }
 
 .card-body {
@@ -40,6 +40,7 @@ height: 100px;
 
 i {
   color: #703229;
+  font-size: 1em;
 }
 
 a {
@@ -95,6 +96,7 @@ body {
 }
 .portlet-header {
   font-size: 1.2em;
+  font-family: 'Roboto', sans-serif;
   padding: 0.2em 0.3em;
   margin-bottom: 0.5em;
   position: relative;
