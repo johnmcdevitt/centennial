@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 
@@ -16,7 +17,7 @@ class Floor(models.Model):
     # ensure users enters valid data- TODO should this be in the form
     def clean(self):
         if self.floorlevel < -5 or self.floorlevel > 100:
-            raise models.ValidationError('Floor level should be between -5 to 100')
+            raise ValidationError('Floor level should be between -5 to 100')
         return self.floorlevel
 
     def __str__(self):
