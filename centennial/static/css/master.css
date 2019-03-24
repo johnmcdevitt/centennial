@@ -1,3 +1,7 @@
+body {
+  font-family: 'Century gothic';
+}
+
 .card-body {
   background-color: #eee9e0;
 }
@@ -22,6 +26,18 @@ height: 100px;
 
 
 /* font awesome objects  */
+.fa-snowflake {
+  color: #037AAF;
+}
+
+.fa-arrows-alt-h {
+  color: white; /*  TODO get marshmallow color code */
+}
+
+.fa-fire-alt {
+  color: #AF2103
+}
+
 i {
   color: #703229;
 }
@@ -79,11 +95,13 @@ body {
   padding: 0.3em;
 }
 .portlet-header {
+  font-size: 1.2em;
   padding: 0.2em 0.3em;
   margin-bottom: 0.5em;
   position: relative;
 }
 .portlet-toggle {
+  font-size: 0.8em;
   position: absolute;
   top: 50%;
   right: 0;

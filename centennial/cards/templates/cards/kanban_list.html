@@ -28,9 +28,18 @@
         {% for card in object_list %}
           <div class="portlet card" style="background-color: #{{card.getcolor}};" id="{{card.pk}}"
           cardstatus="{{card.status}}" order={{card.order}}>
-            <div class="portlet-header">{{card}}</div>
+            <div class="portlet-header">
+              {{card | upper }}
+              {% if card.priority == '3' %}
+                <i class="fas fa-fire-alt"></i>
+              {% elif card.priority == '2' %}
+                <i class="fas fa-arrows-alt-h"></i>
+              {% else %}
+                <i class="far fa-snowflake"></i>
+              {% endif %}
+
+            </div>
             <div class="portlet-content">{{card.description}}</div>
-            <div class="portlet-content">{{card.get_priority_display}}</div>
           </div>
         {% endfor %}
       </td>

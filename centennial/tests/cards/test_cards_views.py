@@ -2,9 +2,10 @@ from django.test import TestCase
 from django.utils import timezone
 from django.urls import reverse
 from django.test import Client
+from django.db import models
 
 # project specific imports
-from cards.models import Card
+from cards.models import Card,CardType
 
 
 class CardViewTest(TestCase):
@@ -171,9 +172,16 @@ class CardViewTest(TestCase):
         self.assertNotContains(response, self.c1.title)
 
     def test_create_card_view(self):
-        response = self.get_response_from_name("create-card")
+        get_response = self.get_response_from_name("create-card")
+        self.assertEqual(get_response.status_code, 200)
 
-        self.assertEqual(response.status_code, 200)
+        # construct post_data
+        cardtype = CardType.objects.create(cardtype="test type",color="999999")
+        post_data = dict(title="test card",description="lorem ipsum",priority=2,type=cardtype.pk)
+
+        # post data and confirm correctly redirected
+        post_response = self.client.post(reverse("create-card"), post_data, follow=True)
+        self.assertRedirects(post_response,reverse("kanban"),status_code=302,target_status_code=200)
 
     def test_kanban_board_page(self):
         response = self.get_response_from_name("kanban")
@@ -188,7 +196,22 @@ class CardViewTest(TestCase):
         post_data = dict(cardstatus="300",order=300010907)
         response = self.client.post(reverse('update_card_api',args=[pk]),post_data)
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response,"Updated card id")
         # confirm card object is updated
         self.c1 = Card.objects.filter(pk=pk)[0]
         self.assertEqual(self.c1.status, "300")
         self.assertEqual(self.c1.order, 300010907)
+
+    def test_exceptions_for_update_card_api_view(self):
+        # get an invalid primary key, get max and add 1
+        invalid_pk = Card.objects.all().aggregate(models.Max("pk"))['pk__max']+1
+        # construct post data and post to view
+        post_data = dict(cardstatus="300",order=300010907)
+        response = self.client.post(reverse('update_card_api',args=[invalid_pk]),post_data)
+        self.assertContains(response,"Card does not exist")
+
+        # pass a null/None value 
+        max_pk = invalid_pk -1
+        post_data = dict(cardstatus=None,order=300010907)
+        response = self.client.post(reverse('update_card_api',args=[max_pk]),post_data)
+        self.assertRaisesMessage(expected_message="Type error", expected_exception=TypeError)
