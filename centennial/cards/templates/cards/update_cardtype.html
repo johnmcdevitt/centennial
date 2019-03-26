@@ -11,6 +11,7 @@
 
         {{ field.label_tag }}
         {{ field }}
+        {% if field.help_text %}{{field.help_text}}{% endif %}
 
         {% for error in field.errors %}
           <p class="help-block">{{ error }}</p>

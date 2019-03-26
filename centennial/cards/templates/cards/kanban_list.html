@@ -25,7 +25,7 @@
     <tr hidden="true">
       <td id="card-staging">
         {% for card in object_list %}
-          <div class="portlet card" style="background-color: #{{card.getcolor}};" id="{{card.pk}}"
+          <div class="portlet card" id="{{card.pk}}"
           cardstatus="{{card.status}}" order={{card.order}}>
             <div class="portlet-header">
               {{card | upper }}
@@ -39,6 +39,9 @@
 
             </div>
             <div class="portlet-content">{{card.description}}</div>
+            <div class="portlet-footer">
+              <i class="{{card.geticon}}" style="color:#{{card.getcolor}};"></i>
+            </div>
           </div>
         {% endfor %}
       </td>
@@ -47,7 +50,7 @@
 
     <tr>
 
-      <td>
+      <td class="board-col">
         <!-- Create card link -->
         <div class="column" id="backlog_col">
           <a href="#" class="create-card">+ add card</a>
@@ -55,19 +58,19 @@
         </div>
       </td>
 
-      <td>
+      <td class="board-col">
         <div class="column" id="inprogress_col">
 
         </div>
       </td>
 
-      <td>
+      <td class="board-col">
         <div class="column" id="review_col">
 
         </div>
       </td>
 
-      <td>
+      <td class="board-col">
         <div class="column" id="done_col">
 
         </div>

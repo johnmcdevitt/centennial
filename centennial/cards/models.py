@@ -7,6 +7,7 @@ from random import randint
 class CardType(models.Model):
     cardtype = models.CharField("Type", max_length=30, unique=True)
     color = models.CharField(max_length=6, unique=True)
+    icon = models.CharField(max_length=40, default="far fa-question-circle",help_text="Font awesome class")
 
     def __str__(self):
         return self.cardtype
@@ -65,3 +66,10 @@ class Card(models.Model):
         else:
             color = self.type.color
         return color
+
+    def geticon(self):
+        if self.type is None:
+            icon = "far fa-question-circle"
+        else:
+            icon = self.type.icon
+        return icon

@@ -14,4 +14,4 @@ class CardForm(PopRequestMixin, CreateUpdateAjaxMixin, forms.ModelForm):
 class CardTypeForm(PopRequestMixin, CreateUpdateAjaxMixin, forms.ModelForm):
     class Meta:
         model = CardType
-        fields = ['cardtype', 'color']
+        fields = ['cardtype', 'color', 'icon']

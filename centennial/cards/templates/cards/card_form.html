@@ -11,20 +11,53 @@
 
   <div class="modal-body">
     {% for field in form %}
-      <div class="form-group{% if field.errors %} invalid {% endif %}" {% if field is form.title %} hidden {% endif %}>
-        {% if field is form.priority or field is form.type %}
-        {{ field.label_tag }}
-        {{ field|add_class:"btn btn-light"}}
-        {% else %}
+      <div class="form-group{% if field.errors %} invalid {% endif %}" {% if field is form.title or field is form.type or field is form.priority %} hidden {% endif %}>
+
         {{ field.label_tag }}
         {{ field }}
-        {% endif %}
 
         {% for error in field.errors %}
           <p class="help-block">{{ error }}</p>
         {% endfor %}
       </div>
     {% endfor %}
+
+    <div class="form-group custom-selector">
+      <label for="dropdownMenuPriority">Priority: </label>
+      <button type="button" class="btn btn-light dropdown-toggle" id="dropdownMenuPriority" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+        <i class="fas fa-arrows-alt-h"> Medium</i>
+        <span class="sr-only">Toggle Dropdown</span>
+      </button>
+      <div class="dropdown-menu">
+          <a class="dropdown-item" href="#" value="3" onclick="setPriority(this);"><i class="fas fa-fire-alt"> High</i></a>
+          <a class="dropdown-item" href="#" value="2" onclick="setPriority(this);" selected><i class="fas fa-arrows-alt-h"> Medium</i></a>
+          <a class="dropdown-item" href="#" value="1" onclick="setPriority(this);"><i class="fas fa-snowflake"> Low</i></a>
+        </div>
+    </div>
+
+    <div class="myclass">
+
+
+      <div class="form-group custom-selector">
+        <label for="dropdownMenuType">Type: </label>
+        <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" id="dropdownMenuType" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
+          <span> -------- </span>
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <div class="dropdown-menu">
+          {% for type in types %}
+            <a class="dropdown-item" href="#" value="{{type.pk}}" onclick="setType(this);">
+              <i class="{{type.icon}}" style="color:#{{type.color}};"> {{type}}</i>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+
+    </div>
+
+
   </div>
 
   <div class="modal-footer">
@@ -46,6 +79,39 @@ function colorHead(type) {
 // title from head moved to hidden input field for submission
 function updateTitle(value) {
   $("#id_title")[0].value = value
+}
+
+// for priority dropdown update hidden form field and display current choice
+function setPriority(priority_choice) {
+  // set hidden dropdown
+  $("#id_priority")[0].value = priority_choice.getAttribute("value")
+  // update visible button
+  // this is the selected icon
+  var selected = priority_choice.childNodes[0]
+  // clone item, do not want to actually move the original with replace
+  var clone_selected = selected.cloneNode(true)
+  // get the current displayed item in the button
+  display = $("#dropdownMenuPriority")[0].childNodes[1]
+  // use replace child to update the displayed item with the cloned item
+  display.parentNode.replaceChild(clone_selected,display)
+}
+
+// for type dropdownd update hidden form field and display current choice
+function setType(type_choice) {
+  // set hidden dropdown
+  $("#id_type")[0].value = type_choice.getAttribute("value")
+  // update visible button
+  // this is the selected icon
+  var selected = type_choice.childNodes[1]
+
+  // clone item, do not want to actually move the original with replace
+  var clone_selected = selected.cloneNode(true)
+  // get the current displayed item in the button
+  display = $("#dropdownMenuType")[0].childNodes[1]
+  console.log("display", display)
+  console.log("selected", selected)
+  // use replace child to update the displayed item with the cloned item
+  display.parentNode.replaceChild(clone_selected,display)
 }
 
 </script>

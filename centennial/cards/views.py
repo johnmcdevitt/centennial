@@ -13,6 +13,21 @@ from .forms import CardTypeForm, CardForm
 class CardCreateView(PassRequestMixin, SuccessMessageMixin, generic.CreateView):
     model = Card
     form_class = CardForm
+
+    def get_context_data(self):
+        type_details = CardType.objects.all()
+        types = dict()
+        for item in type_details:
+            types[item] = dict(
+                                icon=item.icon,
+                                color=item.color,
+                                name=item,
+            )
+
+        context = dict(form=CardForm(), types=types)
+
+        return context
+
     def get_success_url(self):
         return reverse('kanban')
 

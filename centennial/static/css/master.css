@@ -1,9 +1,21 @@
 body {
+  background-color: #703229;
+  color: #eee9e0;
   font-family: 'Abel', sans-serif;
 }
 
-.card-body {
-  background-color: #eee9e0;
+.custom-selector {
+  position:relative;
+  float:left;
+  width:50%;
+}
+
+.custom-selector label, .custom-selector button {
+  display:block;
+}
+
+.custom-selector button {
+  width:95%;
 }
 
 .typelist {
@@ -31,7 +43,7 @@ height: 100px;
 }
 
 .fa-arrows-alt-h {
-  color: white; /*  TODO get marshmallow color code */
+  color: #505f77; /*  TODO get marshmallow color code */
 }
 
 .fa-fire-alt {
@@ -57,9 +69,12 @@ a:hover {
   color: #703229;
 }
 
+
 .card {
+  background-color: #eee9e0;
   margin: 0.75em;
   color: grey;
+  width:100%;
 }
 
 .card-title {
@@ -69,11 +84,6 @@ a:hover {
 .card-footer {
   size: 0.25em;
   font-size: 0.5em;
-}
-
-body {
-  background-color: #703229;
-  color: #eee9e0;
 }
 
 .list-group{
@@ -86,9 +96,13 @@ body {
 }
 
 /* portlets for kanban board https://jqueryui.com/sortable/#portlets */
+.board-col {
+  width:25%;
+}
+
 .column {
-  float: left;
   padding-bottom: 100px;
+  width:95%;
 }
 .portlet {
   margin: 0 1em 1em 0;

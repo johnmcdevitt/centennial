@@ -15,7 +15,7 @@
       <table class="typelist">
         {% for t in cardtypes %}
           <tr>
-            <td><div class="color_box" style="background-color: #{{t.color}};">&nbsp;</div></td>
+            <td><i class="{{ t.icon }}" style="color:#{{t.color}};"></i></td>
             <td><div class="type_name">{{t}}</div></td>
             <td><div class="card_count">{{t.cardcount}} cards</div></td>
             <td><a class="card-type-edit-form" data-id="{% url 'update-type' t.id %}"><i class="fas fa-pen"></i>edit</a></td>
