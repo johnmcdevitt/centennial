@@ -24,26 +24,9 @@
     </thead>
     <tr hidden="true">
       <td id="card-staging">
-        {% for card in object_list %}
-          <div class="portlet card" id="{{card.pk}}"
-          cardstatus="{{card.status}}" order={{card.order}}>
-            <div class="portlet-header">
-              {{card | upper }}
-              {% if card.priority == '3' %}
-                <i class="fas fa-fire-alt"></i>
-              {% elif card.priority == '2' %}
-                <i class="fas fa-arrows-alt-h"></i>
-              {% else %}
-                <i class="far fa-snowflake"></i>
-              {% endif %}
 
-            </div>
-            <div class="portlet-content">{{card.description}}</div>
-            <div class="portlet-footer">
-              <i class="{{card.geticon}}" style="color:#{{card.getcolor}};"></i>
-            </div>
-          </div>
-        {% endfor %}
+        {% include "cards/_cards.html"%}
+
       </td>
     </tr>
 
@@ -198,11 +181,16 @@ $( ".portlet-toggle" ).on( "click", function() {
 } );
 </script>
 
-<!-- scripts for modal form -->
-<script>
-$(document).ready(function() {
-  $(".create-card").modalForm({
-    formURL: "{% url 'create-card'%}"
+<!-- scripts for modal forms -->
+<script type="text/javascript">
+$(function () {
+
+// create card
+  $(".create-card").modalForm({formURL: "{% url 'create-card'%}"});
+
+// update card
+  $(".card-edit-form").each(function() {
+    $(this).modalForm({formURL: $(this).data("id")});
   });
 });
 

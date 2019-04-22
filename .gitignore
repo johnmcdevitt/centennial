@@ -11,3 +11,6 @@ media/
 # code coverage files
 htmlcov/
 .coverage
+
+# selenium test log
+geckodriver.log

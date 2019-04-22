@@ -31,6 +31,28 @@ class CardCreateView(PassRequestMixin, SuccessMessageMixin, generic.CreateView):
     def get_success_url(self):
         return reverse('kanban')
 
+class CardUpdateView(PassRequestMixin, SuccessMessageMixin, generic.UpdateView):
+    template_name = "cards/card_form.html"
+    model = Card
+    form_class = CardForm
+    success_message = "Success: Card was updated"
+    success_url = reverse_lazy('kanban')
+
+    def get_context_data(self, **kwargs):
+        context = super(CardUpdateView, self).get_context_data(**kwargs)
+        type_details = CardType.objects.all()
+        types = dict()
+        for item in type_details:
+            types[item] = dict(
+                                icon=item.icon,
+                                color=item.color,
+                                name=item,
+            )
+
+        context['types'] = types
+
+        return context
+
 
 
 class BacklogListView(generic.ListView):

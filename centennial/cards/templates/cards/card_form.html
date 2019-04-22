@@ -62,7 +62,7 @@
 
   <div class="modal-footer">
     <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-    <button type="button" class="submit-btn btn btn-success" id="card-submit">Create</button>
+    <button type="button" class="submit-btn btn btn-success" id="card-submit">Submit</button>
 
   </div>
 </form>
@@ -96,7 +96,19 @@ function setPriority(priority_choice) {
   display.parentNode.replaceChild(clone_selected,display)
 }
 
-// for type dropdownd update hidden form field and display current choice
+// set initial values for custom dropdown
+$(document).ready(function () {
+  // get value for type on DOM loading
+  var initial_type = $("#id_type")[0].value
+  console.log(typeof(initial_type))
+  if (typeof initial_type == 'number'){
+    display = $("#dropdownMenuType")[0].childNodes[1]
+    console.log(initial_type)
+  }
+});
+
+
+// for type dropdown update hidden form field and display current choice
 function setType(type_choice) {
   // set hidden dropdown
   $("#id_type")[0].value = type_choice.getAttribute("value")
