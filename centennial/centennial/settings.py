@@ -26,6 +26,7 @@ SECRET_KEY = 'sj*%&7!glb66+9c@fkcu*$tjxv%@q(bllxlw&o#ych6d71i-#x'
 DEBUG = True
 
 ALLOWED_HOSTS = ['192.168.1.11', #john ubuntu host
+                 '192.168.1.231', #john mac host
                  'testserver',
                  'perkiomen-homestead.us']
 
@@ -88,8 +89,8 @@ DATABASES = {
         #'NAME': 'prd_centennial_db', # prod db
         'USER': 'django_home_app',
         'PASSWORD': 'P@ssw0rd',
-        'HOST': 'localhost',
-        'PORT': '',
+        'HOST': '192.168.1.11',
+        'PORT': '5432',
     }
 }
 
