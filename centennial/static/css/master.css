@@ -36,6 +36,9 @@ body {
 height: 100px;
 }
 
+.task-list {
+    display: block;
+}
 
 /* font awesome objects  */
 .fa-snowflake {

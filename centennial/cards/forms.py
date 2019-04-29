@@ -4,7 +4,7 @@ from bootstrap_modal_forms.mixins import PopRequestMixin, CreateUpdateAjaxMixin
 #from django.utils.translation import gettext_lazy as _
 
 # project specific imports
-from .models import Card, CardType
+from .models import Card, CardType, CardTask
 
 class CardForm(PopRequestMixin, CreateUpdateAjaxMixin, forms.ModelForm):
     class Meta:
@@ -15,3 +15,9 @@ class CardTypeForm(PopRequestMixin, CreateUpdateAjaxMixin, forms.ModelForm):
     class Meta:
         model = CardType
         fields = ['cardtype', 'color', 'icon']
+
+
+class CardTaskForm(forms.ModelForm):
+    class Meta:
+        model = CardTask
+        exclude = ["card",]

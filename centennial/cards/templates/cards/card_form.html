@@ -1,6 +1,7 @@
 {% load widget_tweaks %}
+{% load static %}
 
-<form action="" method="post">
+<form action="" method="post" id="card_form">
   {% csrf_token %}
   <div class="modal-header">
     <h5 class="modal-title"  >
@@ -22,7 +23,7 @@
       </div>
     {% endfor %}
 
-    <div class="form-group custom-selector">
+     <div class="form-group custom-selector">
       <label for="dropdownMenuPriority">Priority: </label>
       <button type="button" class="btn btn-light dropdown-toggle" id="dropdownMenuPriority" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
         <i class="fas fa-arrows-alt-h"> Medium</i>
@@ -55,63 +56,16 @@
 
     </div>
 
+       {% include 'cards/_task_entry.html' %}
+
     </div>
 
 
-  </div>
-
   <div class="modal-footer">
     <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-    <button type="button" class="submit-btn btn btn-success">Create</button>
+    <button type="button" class="submit-btn btn btn-dark" id="card-submit">Submit</button>
 
   </div>
 </form>
 
-<script type="text/javascript">
-// display color in heading based on type selected
-document.getElementById("id_type").setAttribute("onchange", "colorHead(this.value)")
-
-// TODO incorporate API with flask to get data in real-time
-function colorHead(type) {
-  console.log(type)
-}
-
-// title from head moved to hidden input field for submission
-function updateTitle(value) {
-  $("#id_title")[0].value = value
-}
-
-// for priority dropdown update hidden form field and display current choice
-function setPriority(priority_choice) {
-  // set hidden dropdown
-  $("#id_priority")[0].value = priority_choice.getAttribute("value")
-  // update visible button
-  // this is the selected icon
-  var selected = priority_choice.childNodes[0]
-  // clone item, do not want to actually move the original with replace
-  var clone_selected = selected.cloneNode(true)
-  // get the current displayed item in the button
-  display = $("#dropdownMenuPriority")[0].childNodes[1]
-  // use replace child to update the displayed item with the cloned item
-  display.parentNode.replaceChild(clone_selected,display)
-}
-
-// for type dropdownd update hidden form field and display current choice
-function setType(type_choice) {
-  // set hidden dropdown
-  $("#id_type")[0].value = type_choice.getAttribute("value")
-  // update visible button
-  // this is the selected icon
-  var selected = type_choice.childNodes[1]
-
-  // clone item, do not want to actually move the original with replace
-  var clone_selected = selected.cloneNode(true)
-  // get the current displayed item in the button
-  display = $("#dropdownMenuType")[0].childNodes[1]
-  console.log("display", display)
-  console.log("selected", selected)
-  // use replace child to update the displayed item with the cloned item
-  display.parentNode.replaceChild(clone_selected,display)
-}
-
-</script>
+<script src="{% static 'js/cards/card_form.js' %}"></script>

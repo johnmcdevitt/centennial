@@ -13,7 +13,9 @@ urlpatterns = [
     path('kanban/',views.KanbanBoardListView.as_view(),name='kanban'),
     path('create/',views.CardCreateView.as_view(),name='create-card'),
     path('ajax/<int:pk>/edit/',views.update_card_api,name='update_card_api'),
+    path('ajax/task/<int:pk>/edit/',views.update_task_api,name='update_task_api'),
     path('create-type/',views.CardTypeCreateView.as_view(),name='create-type'),
     path('types/',views.CardTypeListView.as_view(),name='card-types'),
-    path('<int:pk>/edit/',views.CardTypeUpdateView.as_view(),name='update-type'),
+    path('types/<int:pk>/edit/',views.CardTypeUpdateView.as_view(),name='update-type'),
+    path('<int:pk>/edit/',views.CardUpdateView.as_view(),name='update-card'),
 ]
