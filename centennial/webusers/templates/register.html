@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 
   {% block content %}
-    <h1>Register for access</h1>
+    <div class="jumbotron">
+      <h1>Register for access</h1>
 
-      <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Submit</button>
-      </form>
-
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="submit-btn btn btn-dark">Submit</button>
+        </form>
+    </div>
 
   {% endblock %}

@@ -1,7 +1,7 @@
 {% load widget_tweaks %}
 {% load static %}
 
-<form action="" method="post">
+<form action="" method="post" id="card_form">
   {% csrf_token %}
   <div class="modal-header">
     <h5 class="modal-title"  >
@@ -23,7 +23,7 @@
       </div>
     {% endfor %}
 
-    <div class="form-group custom-selector">
+     <div class="form-group custom-selector">
       <label for="dropdownMenuPriority">Priority: </label>
       <button type="button" class="btn btn-light dropdown-toggle" id="dropdownMenuPriority" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
         <i class="fas fa-arrows-alt-h"> Medium</i>
@@ -56,14 +56,14 @@
 
     </div>
 
+       {% include 'cards/_task_entry.html' %}
+
     </div>
 
 
-  </div>
-
   <div class="modal-footer">
     <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
-    <button type="button" class="submit-btn btn btn-success" id="card-submit">Submit</button>
+    <button type="button" class="submit-btn btn btn-dark" id="card-submit">Submit</button>
 
   </div>
 </form>

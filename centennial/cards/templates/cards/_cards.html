@@ -13,6 +13,16 @@
 
     </div>
     <div class="portlet-content">{{card.description}}</div>
+      {% if card.cardtask_set.all %}
+        <!-- <div class="input-group mb-3"> -->
+        {% for t in card.cardtask_set.all %}
+          <div class="task-list" onclick="taskStatusUpdate(this)">
+            <input type="checkbox" id="task_{{t.id}}" {% if t.done %} checked {% endif %}/>
+            <label for="task_{{t.id}}" {% if t.done %} style="text-decoration:line-through;" {% endif %}>{{ t }}</label>
+          </div>
+        {% endfor %}
+        <!-- </div> -->
+      {% endif %}
     <div class="portlet-footer">
       <i class="{{card.geticon}}" style="color:#{{card.getcolor}};"></i>
       <a href="#" class="card-edit-form" data-id="{% url 'update-card' card.id %}">

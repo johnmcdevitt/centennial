@@ -1,0 +1,81 @@
+{% if card.cardtask_set.all %}
+    {% for t in card.cardtask_set.all %}
+      <div class="task-list" onclick="taskStatusUpdate(this)">
+        <input type="checkbox" id="task_{{t.id}}" {% if t.done %} checked {% endif %}/>
+        <label for="task_{{t.id}}" {% if t.done %} style="text-decoration:line-through;" {% endif %}>{{ t }}</label>
+      </div>
+    {% endfor %}
+{% else %}
+<div class="task-entry">
+    <a id="start-tasks" onclick="task_entry(this)">+ checklist</a>
+    <input type="text" style="display:none;"    onkeypress="task_create(this, event)" placeholder="describe the checklist item and hit enter to save">
+</div>
+{% endif %}
+
+<script>
+function task_entry(el) {
+    el.style.display="none";
+    el.nextElementSibling.style.display="block";
+};
+
+function task_create(el,k) {
+    // el is the element where the event k was triggered
+    var keycode = (k.keyCode ? k.keyCode : k.which);
+    if (keycode == '13') {
+        // capture task name and create random id
+        var id_value = Math.floor(Math.random()*1000000)
+        var task_value = el.value
+
+        // create div container for new task
+        var task_container = document.createElement("div")
+        task_container.setAttribute("class", "task-entry-list");
+
+        // create checkbox and label with task value
+        var task_status = document.createElement("input")
+        task_status.type="checkbox"
+        task_status.id = id_value
+
+        var task = document.createElement("label")
+        task.setAttribute("for", id_value)
+        task.innerText = task_value
+
+        // clear value to accept new input and place task on card form
+        el.value=""
+        task_container.appendChild(task_status)
+        task_container.appendChild(task)
+        el.before(task_container)
+     }
+};
+
+
+// add an event listener
+$('#card_form').submit(function () {
+    var tasks = $('.task-entry-list')
+    var params = []
+    for (var t=0; t<=tasks.length-1;t++) {
+      params[2*t] = {
+                    name: "task"+t,
+                    value: tasks[t].childNodes[1].innerText
+      }
+      params[2*t+1] = {
+                    name: "done"+t,
+                    value: tasks[t].childNodes[0].checked
+      }
+    }
+
+    console.log(params)
+
+    $(this).append($.map(params, function (param) {
+
+
+
+        return $('<input>', {
+                    type: 'hidden',
+                    name: param.name,
+                    value: param.value
+        })
+    }))
+});
+
+
+</script>

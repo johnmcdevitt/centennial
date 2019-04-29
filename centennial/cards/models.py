@@ -73,3 +73,11 @@ class Card(models.Model):
         else:
             icon = self.type.icon
         return icon
+
+class CardTask(models.Model):
+    task = models.TextField(help_text="What do you need to do")
+    card = models.ForeignKey(Card,on_delete=models.CASCADE,null=False)
+    done = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.task
