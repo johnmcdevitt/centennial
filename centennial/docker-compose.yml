@@ -1,0 +1,24 @@
+version: '3.7'
+
+services:
+  db:
+    image: postgres:9
+    expose:
+      - '5432'
+    environment:
+      - POSTGRES_USER=django_home_app
+      - POSTGRES_PASSWORD=P@ssw0rd
+      - POSTGRES_DB=centennial_db
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - '8000'
+    expose:
+      - '8000'
+    depends_on:
+      - db

@@ -74,6 +74,12 @@ class Card(models.Model):
             icon = self.type.icon
         return icon
 
+    def taskcount(self):
+        return CardTask.objects.filter(card=self).count()
+
+    def task_done_count(self):
+        return CardTask.objects.filter(card=self,done=True).count()
+
 class CardTask(models.Model):
     task = models.TextField(help_text="What do you need to do")
     card = models.ForeignKey(Card,on_delete=models.CASCADE,null=False)
