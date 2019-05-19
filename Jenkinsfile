@@ -19,8 +19,10 @@ pipeline {
                     image 'johnmcdevitt/centennial:dev'
                 }
             steps {
-                sh 'cd centennial'
-                sh 'python manage.py test -v 2'
+                sh '''
+                    cd centennial
+                    python manage.py test -v 2
+                    '''
             }
         }
     }
