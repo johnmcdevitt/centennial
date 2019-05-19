@@ -8,7 +8,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'which python && which pip && ls' 
+                sh 'pip install -r centennial/requirements.txt' 
             }
         }
     }
