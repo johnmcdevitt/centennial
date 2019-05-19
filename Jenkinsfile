@@ -18,6 +18,7 @@ pipeline {
                 docker {
                     image 'johnmcdevitt/centennial:dev'
                 }
+            }
             steps {
                 sh '''
                     cd centennial
@@ -26,5 +27,4 @@ pipeline {
             }
         }
     }
-}
 }
