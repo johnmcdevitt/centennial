@@ -10,7 +10,7 @@ services:
       - POSTGRES_PASSWORD=P@ssw0rd
       - POSTGRES_DB=centennial_db
     volumes:
-      - /usr/local/var/postgres:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
   web:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
@@ -24,4 +24,4 @@ services:
       - db
 
 volumes:
-  /usr/local/var/postgres:
+  postgres-data:

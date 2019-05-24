@@ -14,15 +14,12 @@ pipeline {
         }
         
         stage('Test') {
-            agent {
-                docker {
-                    image 'johnmcdevitt/centennial:dev'
-                }
-            }
+            agent none
             steps {
                 sh '''
-                    cd centennial
-                    python manage.py test -v 2
+                    docker-compose build
+                    docker-compose up -d
+                    docker exec web cd /app/centennial && python manage.py test -v 2
                     '''
             }
         }
