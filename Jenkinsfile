@@ -16,9 +16,9 @@ pipeline {
         stage('Test') {
             agent any
             steps {
-                sh 'docker-compose build'
-                sh 'docker-compose up -d'
-                sh 'docker exec web cd /app/centennial && python manage.py test -v 2'
+                sh 'docker build -t centennial .'
+                sh 'docker stack deploy --compose-file docker-compose.yml test'
+                sh 'docker exec test_web_1 cd /app/centennial && python manage.py test -v 2'
             }
         }
     }
