@@ -14,13 +14,11 @@ pipeline {
         }
         
         stage('Test') {
-            agent none
+            agent any
             steps {
-                sh '''
-                    docker-compose build
-                    docker-compose up -d
-                    docker exec web cd /app/centennial && python manage.py test -v 2
-                    '''
+                sh 'docker-compose build'
+                sh 'docker-compose up -d'
+                sh 'docker exec web cd /app/centennial && python manage.py test -v 2'
             }
         }
     }
