@@ -18,7 +18,8 @@ pipeline {
             steps {
                 sh 'docker build -t centennial centennial/.'
                 sh 'docker stack deploy --compose-file centennial/docker-compose.yml test'
-                sh 'docker exec test_web_1 cd /app/centennial && python manage.py test -v 2'
+                sh 'docker ps'
+                sh 'docker exec test_web.1 cd /app/centennial && python manage.py test -v 2'
             }
         }
     }
