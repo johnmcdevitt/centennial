@@ -23,5 +23,16 @@ pipeline {
                 sh 'docker exec test_web.1.$(docker service ps -f "name=test_web.1" test_web -q --no-trunc | head -n1) python manage.py test -v 2'
             }
         }
+        stage('Deploy') {
+            when {
+                branch 'dockerize'
+            }
+            agent any
+            steps {
+                sshagent(credentials :['jenkins-deploy']) {
+                    sh 'ssh -o StrictHostKeyChecking=no jenkins@192.168.1.11 uptime'
+                }
+            }
+        }
     }
 }
