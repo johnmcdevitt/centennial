@@ -20,9 +20,20 @@ pipeline {
                 sh 'docker ps'
                 sh 'docker stack deploy --compose-file centennial/docker-compose.yml test'
                 sh 'docker ps'
-                sh 'docker exec test_web.1.$(docker service ps -f "name=test_web.1" test_web -q --no-trunc | head -n1) python manage.py test -v 2'
+                retry(2) {
+                    try {
+                        sh 'docker exec test_web.1.$(docker service ps -f "name=test_web.1" test_web -q --no-trunc | head -n1) python manage.py test -v 2'
+                    }
+                    catch (e) {
+                        echo 'Failed to run unit tests'
+                        sleep {
+                            time 5
+                            unit seconds
+                    }
+                }
             }
         }
+
         stage('Deploy') {
             when {
                 branch 'dockerize'
