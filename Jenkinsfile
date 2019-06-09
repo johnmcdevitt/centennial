@@ -43,7 +43,7 @@ pipeline {
             }
             agent any
             steps {
-                sshagent(credentials :['jenkins-deploy']) {
+                sshagent(credentials :['d17858cb-7026-4eec-bd63-f5e5baeecbc5']) {
                     sh 'ssh -o StrictHostKeyChecking=no john@192.168.1.11 uptime'
                 }
             }
