@@ -1,4 +1,5 @@
 pipeline {
+    agent any
     stages('Build') {
         agent any
         stage('Build DEV container') {
