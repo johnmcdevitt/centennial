@@ -3,11 +3,7 @@ pipeline {
     agent none
     stages {
         stage('Build') { 
-            agent {
-                docker {
-                    image 'johnmcdevitt/centennial:dev'
-                }
-            }
+            agent any
             steps {
                 sh 'docker build -t johnmcdevitt/centennial-dev:${branch}+${buildNumber} centennial/.'
             }
