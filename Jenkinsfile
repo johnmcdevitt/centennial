@@ -4,8 +4,15 @@ pipeline {
     stages {
         stage('Build') { 
             agent any
-            steps {
-                sh 'docker build -t johnmcdevitt/centennial-dev:$BRANCH_NAME.$BUILD_NUMBER centennial/.'
+            stage('Build DEV container') {
+                steps {
+                    sh 'docker build -t johnmcdevitt/centennial-dev:$BRANCH_NAME.$BUILD_NUMBER centennial/.'
+                }
+            }
+            stage('Push DEV container') {
+                steps {
+                    sh 'echo push to docker here'
+                }
             }
         }
         
