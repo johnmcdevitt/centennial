@@ -1,22 +1,22 @@
 
 pipeline {
-    agent none 
+    agent none
     stages {
         stage('Build') { 
             agent {
                 docker {
-                    image 'johnmcdevitt/centennial:dev' 
+                    image 'johnmcdevitt/centennial:dev'
                 }
             }
             steps {
-                sh 'pip install -r centennial/requirements.txt' 
+                sh 'docker build -t johnmcdevitt/centennial-dev:$branch+$buildNumber centennial/.'
             }
         }
         
         stage('Test') {
             agent any
             steps {
-                sh 'docker build -t centennial centennial/.'
+
                 sh 'docker ps'
                 sh 'docker stack deploy --compose-file centennial/docker-compose.yml test'
                 sh 'docker ps'
@@ -37,14 +37,16 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy to PROD') {
             when {
                 branch 'dockerize'
             }
             agent any
             steps {
-                sshagent(credentials :['perkiomen-homestead']) {
-                    sh 'ls'
+                sshagent(credentials :['jenkins-deploy-john-ubuntu']) {
+                    sh '''
+                    ssh john@192.168.1.11 ls
+                    '''
                 }
             }
         }
