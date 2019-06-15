@@ -9,7 +9,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'docker build -t johnmcdevitt/centennial-dev:$branch+$buildNumber centennial/.'
+                sh 'docker build -t johnmcdevitt/centennial-dev:${branch}+${buildNumber} centennial/.'
             }
         }
         
