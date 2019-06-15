@@ -1,7 +1,6 @@
 pipeline {
     agent any
     stages('Build') {
-        agent any
         stage('Build DEV container') {
             steps {
                 sh 'docker build -t johnmcdevitt/centennial-dev:$BRANCH_NAME.$BUILD_NUMBER centennial/.'
@@ -15,7 +14,6 @@ pipeline {
     }
         
     stage('Test') {
-        agent any
         steps {
             sh 'docker ps'
             sh 'docker stack deploy --compose-file centennial/docker-compose.yml test'
@@ -41,7 +39,6 @@ pipeline {
         when {
             branch 'dockerize'
         }
-        agent any
         steps {
             sshagent(credentials :['jenkins-deploy-john-ubuntu']) {
                 sh '''
