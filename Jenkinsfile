@@ -5,7 +5,7 @@ pipeline {
         stage('Build') { 
             agent any
             steps {
-                sh 'docker build -t johnmcdevitt/centennial-dev:B${branch}.N${buildNumber} centennial/.'
+                sh 'docker build -t johnmcdevitt/centennial-dev:$BRANCH_NAME.$BUILD_NUMBER centennial/.'
             }
         }
         
