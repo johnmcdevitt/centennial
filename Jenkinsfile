@@ -7,7 +7,7 @@ pipeline {
                 // sh 'docker build -t johnmcdevitt/centennial-dev:$BRANCH_NAME.$BUILD_NUMBER centennial/.'
                 sh 'cd centennial'
                 script {
-                    app = docker.build('johnmcdevitt/centennial-dev:$BRANCH_NAME.$BUILD_NUMBER')
+                    def app = docker.build('johnmcdevitt/centennial-dev:$BRANCH_NAME.$BUILD_NUMBER', 'centennial/')
                 }
             }
         }
