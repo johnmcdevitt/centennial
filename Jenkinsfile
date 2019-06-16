@@ -4,7 +4,9 @@ pipeline {
 
         stage('Build DEV container') {
             steps {
-                sh 'docker build -t johnmcdevitt/centennial-dev:$BRANCH_NAME.$BUILD_NUMBER centennial/.'
+                // sh 'docker build -t johnmcdevitt/centennial-dev:$BRANCH_NAME.$BUILD_NUMBER centennial/.'
+                sh 'cd centennial'
+                app = docker.build('johnmcdevitt/centennial-dev:$BRANCH_NAME.$BUILD_NUMBER')
             }
         }
         stage('Push DEV container') {
