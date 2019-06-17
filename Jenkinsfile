@@ -20,7 +20,7 @@ pipeline {
                 sh 'DEV_VERSION=$BRANCH_NAME.$BUILD_NUMBER docker stack deploy --compose-file centennial/docker-compose.yml test'
 
                 // give time for deployment hard code 1 minute
-                sleep {time: 60, unit: seconds}
+                sleep(time:60,unit:"SECONDS")
 
                 sh 'docker ps'
                 retry(3) {
