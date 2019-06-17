@@ -1,13 +1,16 @@
 pipeline {
     agent any
+
+    environment {
+        registryCredential 'hub-docker'
+    }
+
     stages {
 
         stage('Build DEV container') {
             steps {
-                // sh 'docker build -t johnmcdevitt/centennial-dev:$BRANCH_NAME.$BUILD_NUMBER centennial/.'
-                sh 'cd centennial'
                 script {
-                    def app = docker.build('johnmcdevitt/centennial-dev:$BRANCH_NAME.$BUILD_NUMBER', 'centennial/')
+                    def devImage = docker.build('johnmcdevitt/centennial-dev:$BRANCH_NAME.$BUILD_NUMBER', 'centennial/')
                 }
             }
         }
@@ -44,7 +47,11 @@ pipeline {
 
         stage('Push DEV container') {
             steps {
-                sh 'echo push to docker here'
+                script {
+                    docker.withRegistry('', registryCredential ) {
+                        devImage.push()
+                    }
+                }
             }
         }
 
