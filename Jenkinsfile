@@ -11,18 +11,15 @@ pipeline {
                 }
             }
         }
-        stage('Push DEV container') {
-            steps {
-                sh 'echo push to docker here'
-            }
-        }
 
-        stage('Test') {
+
+        stage('Deploy Test') {
             steps {
                 sh 'docker ps'
-                sh 'docker stack deploy --compose-file centennial/docker-compose.yml test'
+                // set version and deploy test environment
+                sh 'DEV_VERSION=$BRANCH_NAME.$BUILD_NUMBER docker stack deploy --compose-file centennial/docker-compose.yml test'
                 sh 'docker ps'
-                retry(2) {
+                retry(3) {
                     script {
                         try {
                             sh 'docker exec test_web.1.$(docker service ps -f "name=test_web.1" test_web -q --no-trunc | head -n1) python manage.py test -v 2'
@@ -30,12 +27,20 @@ pipeline {
                         catch (e) {
                             echo 'Failed to run unit tests'
                             sleep {
-                                time 5
+                                time 10
                                 unit seconds
                             }
                         }
                     }
                 }
+            }
+        }
+
+        // insert parallel static tests here
+
+        stage('Push DEV container') {
+            steps {
+                sh 'echo push to docker here'
             }
         }
 
