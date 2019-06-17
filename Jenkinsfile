@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         registryCredential = 'hub-docker'
+        devImage = ''
     }
 
     stages {
@@ -10,7 +11,7 @@ pipeline {
         stage('Build DEV container') {
             steps {
                 script {
-                    def devImage = docker.build('johnmcdevitt/centennial-dev:$BRANCH_NAME.$BUILD_NUMBER', 'centennial/')
+                    devImage = docker.build('johnmcdevitt/centennial-dev:$BRANCH_NAME.$BUILD_NUMBER', 'centennial/')
                 }
             }
         }
