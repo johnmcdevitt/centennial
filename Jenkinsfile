@@ -63,7 +63,8 @@ pipeline {
             steps {
                 sshagent(credentials :['jenkins-deploy-john-ubuntu']) {
                     sh '''
-                    ssh john@192.168.1.11 DEV_VERSION=$BRANCH_NAME.$BUILD_NUMBER docker stack deploy -c centennial/docker-compose.yml test
+                    scp centennial/docker-compose.yml john@192.168.1.11:/tmp
+                    ssh john@192.168.1.11 DEV_VERSION=$BRANCH_NAME.$BUILD_NUMBER docker stack deploy -c /tmp/docker-compose.yml test
                     '''
                 }
             }
