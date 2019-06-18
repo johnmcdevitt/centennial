@@ -139,7 +139,5 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = '/media/'
 
-# test media root
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 # prod media root
-# MEDIA_ROOT = "/var/www/perkiomen-homestead.us/public_html/media"
+MEDIA_ROOT = "/media"

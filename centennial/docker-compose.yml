@@ -20,6 +20,9 @@ services:
       - '8000'
     depends_on:
       - db
+    volumes:
+      - centennial-media:/media
 
 volumes:
   postgres-data:
+  centennial-media:
