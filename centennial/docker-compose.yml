@@ -11,6 +11,9 @@ services:
       - POSTGRES_DB=centennial_db
     volumes:
       - postgres-data:/var/lib/postgresql/data
+    networks:
+      - centennial-network
+
   web:
     image: johnmcdevitt/centennial-dev:${DEV_VERSION}
     command: python manage.py runserver 0.0.0.0:8000
@@ -22,7 +25,22 @@ services:
       - db
     volumes:
       - centennial-media:/media
+    networks:
+      - centennial-network
+
+  nginx:
+    image: mynginx
+    ports:
+      - "80:80"
+    container_name: centennial-nginx
+    depends_on:
+      - web
+    networks:
+      - centennial-network
 
 volumes:
   postgres-data:
   centennial-media:
+
+networks:
+  centennial-network:
