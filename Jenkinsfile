@@ -66,6 +66,11 @@ pipeline {
                     ssh john@192.168.1.11 docker stack rm test
                     scp centennial/docker-compose.yml john@192.168.1.11:/tmp
                     ssh john@192.168.1.11 DEV_VERSION=$BRANCH_NAME.$BUILD_NUMBER docker stack deploy -c /tmp/docker-compose.yml test
+                    '''
+
+                    sleep(time:60,unit:"SECONDS")
+
+                    sh '''
                     ssh john@192.168.1.11 docker exec test_web.1.$(docker service ps -f "name=test_web.1" test_web -q --no-trunc | head -n1) python manage.py migrate
                     '''
                 }
