@@ -21,10 +21,10 @@ services:
       - '8000'
     expose:
       - '8000'
-    depends_on:
-      - db
     volumes:
       - centennial-media:/media
+    depends_on:
+      - db
     networks:
       - centennial-network
 
@@ -32,7 +32,6 @@ services:
     image: mynginx
     ports:
       - "80:80"
-    container_name: centennial-nginx
     depends_on:
       - web
     networks:
