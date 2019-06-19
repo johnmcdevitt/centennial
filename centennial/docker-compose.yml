@@ -38,7 +38,7 @@ services:
       - centennial-network
 
 volumes:
-  postgres-data:
+  pg-data:
   centennial-media:
 
 networks:
