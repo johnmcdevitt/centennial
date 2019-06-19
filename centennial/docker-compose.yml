@@ -10,7 +10,7 @@ services:
       - POSTGRES_PASSWORD=P@ssw0rd
       - POSTGRES_DB=centennial_db
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - pg-data:/var/lib/postgresql/data
     networks:
       - centennial-network
 
