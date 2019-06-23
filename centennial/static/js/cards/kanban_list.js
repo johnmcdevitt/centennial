@@ -116,7 +116,7 @@ $( ".portlet-toggle" ).on( "click", function() {
   function taskStatusUpdate(el) {
     var style = "text-decoration:none;"
     var done = el.getElementsByTagName("input")[0].checked
-    var id = el.getElementsByTagName("input")[0].id.match('[0-9]')
+    var id = el.getElementsByTagName("input")[0].id.match('[0-9]+')
     if (done) {
       style = "text-decoration:line-through;"
       done = 'True'

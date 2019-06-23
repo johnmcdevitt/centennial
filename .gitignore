@@ -14,3 +14,6 @@ htmlcov/
 
 # selenium test log
 geckodriver.log
+
+# pycharm files
+.idea/

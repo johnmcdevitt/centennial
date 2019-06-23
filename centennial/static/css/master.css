@@ -40,6 +40,12 @@ height: 100px;
     display: block;
 }
 
+.card-task-completion {
+    position: relative;
+    float: left;
+    font-size: 0.6em;
+}
+
 /* font awesome objects  */
 .fa-snowflake {
   color: #037AAF;
