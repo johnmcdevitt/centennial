@@ -58,7 +58,7 @@ pipeline {
 
         stage('Deploy to PROD') {
             when {
-                branch 'dockerize'
+                branch 'master'
             }
             steps {
                 sshagent(credentials :['jenkins-deploy-john-ubuntu']) {
