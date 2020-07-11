@@ -21,7 +21,7 @@ pipeline {
             steps {
                 sh 'docker ps'
                 // set version and deploy test environment
-                sh 'DEV_VERSION=$BRANCH_NAME.$BUILD_NUMBER docker stack deploy --compose-file centennial/docker-compose.yml test'
+                sh 'DEV_VERSION=$BRANCH_NAME.$BUILD_NUMBER NGINX_PORTS="8080:8080" docker stack deploy --compose-file centennial/docker-compose.yml test'
 
                 // give time for deployment hard code 1 minute
                 sleep(time:60,unit:"SECONDS")
@@ -64,7 +64,7 @@ pipeline {
                 sshagent(credentials :['jenkins-deploy-john-ubuntu']) {
                     sh '''
                     scp centennial/docker-compose.yml john@192.168.1.11:/tmp
-                    ssh john@192.168.1.11 DEV_VERSION=$BRANCH_NAME.$BUILD_NUMBER docker stack deploy -c /tmp/docker-compose.yml test
+                    ssh john@192.168.1.11 DEV_VERSION=$BRANCH_NAME.$BUILD_NUMBER NGINX_PORTS="80:80" docker stack deploy -c /tmp/docker-compose.yml test
                     '''
 
                     sleep(time:30,unit:"SECONDS")
