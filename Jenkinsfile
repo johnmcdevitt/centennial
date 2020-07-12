@@ -26,10 +26,10 @@ pipeline {
                 // give time for deployment hard code 1 minute
                 sleep(time:60,unit:"SECONDS")
 
-                sh 'docker ps'
                 retry(3) {
                     script {
                         try {
+                            sh 'docker ps'
                             sh 'docker exec test_web.1.$(docker service ps -f "name=test_web.1" test_web -q --no-trunc | head -n1) python manage.py test -v 2'
                         }
                         catch (e) {
