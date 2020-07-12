@@ -63,7 +63,7 @@ pipeline {
             steps {
                 sshagent(credentials :['jenkins-deploy-john-ubuntu']) {
                     sh '''
-                    scp centennial/docker-compose.yml john@192.168.1.11:/tmp
+                    scp -v centennial/docker-compose.yml john@192.168.1.11:/tmp
                     ssh john@192.168.1.11 DEV_VERSION=$BRANCH_NAME.$BUILD_NUMBER NGINX_PORTS="80:80" docker stack deploy -c /tmp/docker-compose.yml test
                     '''
 
