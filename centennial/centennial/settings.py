@@ -85,12 +85,11 @@ WSGI_APPLICATION = 'centennial.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'centennial_db', # test db
-        #'NAME': 'prd_centennial_db', # prod db
+        'NAME': 'centennial_db',
         'USER': 'django_home_app',
         'PASSWORD': 'P@ssw0rd',
-        'HOST': 'db',#''192.168.1.11',
-        'PORT': '5432'#'5432',
+        'HOST': 'test_db',
+        'PORT': '5432',
     }
 }
 

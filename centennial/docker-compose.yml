@@ -31,7 +31,7 @@ services:
   nginx:
     image: mynginx
     ports:
-      - "80:80"
+      - ${NGINX_PORTS}
     depends_on:
       - web
     networks:
