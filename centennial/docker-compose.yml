@@ -29,7 +29,7 @@ services:
       - centennial-network
 
   nginx:
-    image: mynginx
+    image: johnmcdevitt/nginx:centennial_0.2
     ports:
       - ${NGINX_PORTS}
     depends_on:
